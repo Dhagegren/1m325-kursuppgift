@@ -2,8 +2,6 @@ var Main = (function(){
 
 
 
-
-
 this.init = function(){
     document.getElementById("icon-dice").addEventListener("click", function(){
         var diceWindow = new Window();
@@ -11,7 +9,7 @@ this.init = function(){
     });   
    }
 
-
+   
 })();
 window.addEventListener("load", this.init);
 

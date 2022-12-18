@@ -13,7 +13,6 @@ var Window = function () {
     this.diceContentWrapper = document.createElement("div");
     this.diceContentWrapper = document.createElement("div");
     this.diceUl = document.createElement("ul");
-   
 
 }
 Window.prototype.createWindow = function () {
@@ -38,6 +37,8 @@ Window.prototype.createWindow = function () {
 
     this.add.setAttribute("class", "add");
     this.add.addEventListener("click", this.addDice.bind(this));
+    //detta kanske fungerar=
+    this.add.addEventListener("click", this.countPoints.bind(this));
     this.ulList.appendChild(this.add);
 
     this.remove.setAttribute("class", "remove");
@@ -46,6 +47,8 @@ Window.prototype.createWindow = function () {
 
     this.roll.setAttribute("class", "roll");
     this.roll.addEventListener("click", this.diceReRoll.bind(this));
+    //detta fungerar inte, varför?
+    this.roll.addEventListener("click", this.countPoints.bind(this));
     this.ulList.appendChild(this.roll);
 
     this.ulList.appendChild(this.emptyLi);
@@ -54,7 +57,7 @@ Window.prototype.createWindow = function () {
     this.emptyLi.appendChild(this.toolbarCounter);
 
     for (let i = 0; i < 5; i++) {
-        this.liZero = document.createElement("li");
+         this.liZero = document.createElement("li");
         this.liZero.setAttribute("class", "zero");
         this.toolbarCounter.appendChild(this.liZero);
     }
@@ -68,6 +71,21 @@ Window.prototype.createWindow = function () {
     
 }
 
+//väldigt ofärdig kod för att fixa css på räknaren, inte en aning hur jag ska tackla problement. Kanske switch case?
+Window.prototype.countPoints = function (){
+var points = 0;
+     for(i=0; i<this.diceArr.length; i++){
+        points += parseInt(this.diceArr[i].diceElement.value);  
+      }
+      console.log(points);
+    
+      for(i=0; i<this.toolbarCounter.children.length; i++){
+        console.log(this.toolbarCounter.children[i]);
+        
+        this.toolbarCounter.children[i].setAttribute("class", "one");
+      }     
+}
+
 Window.prototype.closeWindow = function () {
     this.diceWindowWrapper.remove();
 }
@@ -79,7 +97,6 @@ Window.prototype.addDice = function () {
     dice.rollDice(dice);
     this.diceArr.push(dice);
     this.diceUl.appendChild(dice.diceElement);
-    
     }
 }
 Window.prototype.removeDice = function (){
@@ -90,42 +107,36 @@ Window.prototype.removeDice = function (){
 
  }
 
+ //denna lösningen kanske fungerar för att fixa poängen, konstig manipulering av attributen och kräver endel dubbelkod för att få det att fungera, samma i dice.
  Window.prototype.diceReRoll = function (){
     for(i=0; i<this.diceArr.length; i++){
         var num = Math.floor(Math.random() *6 +1);
-      
-
     switch(num){
         case 1: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-one");
+        this.diceArr[i].diceElement.setAttribute("value", num);
         break;
         case 2: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-two");
+        this.diceArr[i].diceElement.setAttribute("value", num);
         break;
         case 3: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-three");
+        this.diceArr[i].diceElement.setAttribute("value", num);
         break;
         case 4: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-four");
+        this.diceArr[i].diceElement.setAttribute("value", num);
         break;
         case 5: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-five");
+        this.diceArr[i].diceElement.setAttribute("value", num);
         break;
         case 6: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-six");
+        this.diceArr[i].diceElement.setAttribute("value", num);
         break;
     }
-    this.value = num;
-
+    
     }
-
 
 
     //detta funkar inte, borde gå att räkna ihop poängen med värdet men kan inte kalla på funktionen där det behövs.
-    Window.prototype.countPoints = function(){
-        for(i=0; i<this.diceArr.length; i++){
-            var bög =   this.diceArr[i].value;
-            console.log(this.diceArr[i].value);
-            var hets =0;
-            hets += bög;
-    
-          }
-     
-    }
+   
 
 
     
