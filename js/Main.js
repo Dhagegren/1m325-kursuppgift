@@ -7,9 +7,7 @@ this.init = function(){
         var diceWindow = new Window();
         diceWindow.createWindow(diceWindow);
     });   
-   }
-
-   
+   }   
 })();
 window.addEventListener("load", this.init);
 

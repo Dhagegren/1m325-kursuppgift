@@ -43,6 +43,7 @@ Window.prototype.createWindow = function () {
 
     this.remove.setAttribute("class", "remove");
     this.remove.addEventListener("click", this.removeDice.bind(this));
+    this.remove.addEventListener("click",this.countPoints.bind(this));
     this.ulList.appendChild(this.remove);
 
     this.roll.setAttribute("class", "roll");
@@ -61,7 +62,8 @@ Window.prototype.createWindow = function () {
         this.liZero.setAttribute("class", "zero");
         this.toolbarCounter.appendChild(this.liZero);
     }
-
+    
+   
     this.diceContentWrapper.setAttribute("class", "dice-content-wrapper");
     this.diceWindowWrapper.appendChild(this.diceContentWrapper);
 
@@ -73,17 +75,21 @@ Window.prototype.createWindow = function () {
 
 //väldigt ofärdig kod för att fixa css på räknaren, inte en aning hur jag ska tackla problement. Kanske switch case?
 Window.prototype.countPoints = function (){
+   
+var letters = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 var points = 0;
+
      for(i=0; i<this.diceArr.length; i++){
-        points += parseInt(this.diceArr[i].diceElement.value);  
+        points += parseInt(this.diceArr[i].diceElement.value); 
       }
-      console.log(points);
-    
-      for(i=0; i<this.toolbarCounter.children.length; i++){
-        console.log(this.toolbarCounter.children[i]);
-        
-        this.toolbarCounter.children[i].setAttribute("class", "one");
-      }     
+      
+      var pointsString =Array.from(String(points));
+      for(i=0; i<pointsString.length; i++){
+        result = pointsString[i].replace(/\b\d\b/g, m => letters[m]) ;
+
+        this.toolbarCounter.children[i].setAttribute("class", result); 
+        console.log(this.toolbarCounter.children[i]); 
+      }  
 }
 
 Window.prototype.closeWindow = function () {
