@@ -32,13 +32,14 @@ Window.prototype.createWindow = function () {
 
     this.diceToolbarWrapper.setAttribute("class", "dice-toolbar-wrapper");
     this.diceWindowWrapper.appendChild(this.diceToolbarWrapper);
-
+    
     this.diceToolbarWrapper.appendChild(this.ulList);
 
     this.add.setAttribute("class", "add");
     this.add.addEventListener("click", this.addDice.bind(this));
-    //detta kanske fungerar=
-    this.add.addEventListener("click", this.countPoints.bind(this));
+
+    this.add.addEventListener("click", this.countPoints.bind(this));    
+    this.add.addEventListener("click", this.addSound.bind(this));
     this.ulList.appendChild(this.add);
 
     this.remove.setAttribute("class", "remove");
@@ -73,22 +74,19 @@ Window.prototype.createWindow = function () {
     
 }
 
-//väldigt ofärdig kod för att fixa css på räknaren, inte en aning hur jag ska tackla problement. Kanske switch case?
+//väldigt ofärdig kod för att fixa css på räknaren, inte en aning hur jag ska tackla problement.
 Window.prototype.countPoints = function (){
    
 var letters = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
 var points = 0;
 
      for(i=0; i<this.diceArr.length; i++){
-        points += parseInt(this.diceArr[i].diceElement.value); 
+        points += parseInt(this.diceArr[i].value); 
       }
-      
       var pointsString =Array.from(String(points));
       for(i=0; i<pointsString.length; i++){
-        result = pointsString[i].replace(/\b\d\b/g, m => letters[m]) ;
-
+        result = pointsString[i].replace(/\b\d\b/g, m => letters[m]);
         this.toolbarCounter.children[i].setAttribute("class", result); 
-        console.log(this.toolbarCounter.children[i]); 
       }  
 }
 
@@ -105,48 +103,22 @@ Window.prototype.addDice = function () {
     this.diceUl.appendChild(dice.diceElement);
     }
 }
-Window.prototype.removeDice = function (){
-    var dies = document.getElementsByClassName("dice");
-    var last = dies[dies.length -1];
-    last.parentNode.removeChild(last);
-    this.diceArr.pop(); 
 
+Window.prototype.removeDice = function (){
+    this.last = this.diceArr[this.diceArr.length -1];
+    this.last.diceElement.parentNode.removeChild(this.last.diceElement);
+    this.diceArr.pop(); 
  }
 
- //denna lösningen kanske fungerar för att fixa poängen, konstig manipulering av attributen och kräver endel dubbelkod för att få det att fungera, samma i dice.
+ Window.prototype.addSound = function(){
+    new Audio(src ="wav/add.wav").play();
+}
+
+ //tror det funkar nu, ändrar value direkt istället för att sätta ett attribut som en jävla apa
  Window.prototype.diceReRoll = function (){
     for(i=0; i<this.diceArr.length; i++){
-        var num = Math.floor(Math.random() *6 +1);
-    switch(num){
-        case 1: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-one");
-        this.diceArr[i].diceElement.setAttribute("value", num);
-        break;
-        case 2: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-two");
-        this.diceArr[i].diceElement.setAttribute("value", num);
-        break;
-        case 3: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-three");
-        this.diceArr[i].diceElement.setAttribute("value", num);
-        break;
-        case 4: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-four");
-        this.diceArr[i].diceElement.setAttribute("value", num);
-        break;
-        case 5: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-five");
-        this.diceArr[i].diceElement.setAttribute("value", num);
-        break;
-        case 6: this.diceArr[i].diceElement.setAttribute("class", "dice dice-side-six");
-        this.diceArr[i].diceElement.setAttribute("value", num);
-        break;
+        this.diceArr[i].reroll();         
     }
-    
-    }
-
-
-    //detta funkar inte, borde gå att räkna ihop poängen med värdet men kan inte kalla på funktionen där det behövs.
-   
-
-
-    
-
  }
 
 
