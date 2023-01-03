@@ -76,21 +76,21 @@ Window.prototype.createWindow = function () {
 
 //väldigt ofärdig kod för att fixa css på räknaren, inte en aning hur jag ska tackla problement.
 Window.prototype.countPoints = function () {
-    for (i = 0; i < this.toolbarCounter.children.length; i++) {
+    for (let i = 0; i < this.toolbarCounter.children.length; i++) {
         this.toolbarCounter.children[i].setAttribute("class", "zero");
     }
 
-    var letters = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-    var points = 0;
-    var index = 4;
+    let letters = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+    let points = 0;
+    let index = 4;
 
-    for (i = 0; i < this.diceArr.length; i++) {
+    for (let i = 0; i < this.diceArr.length; i++) {
         points += parseInt(this.diceArr[i].value);
     }
     var pointsString = Array.from(String(points));
     pointsString.reverse();
-    for (i = 0; i < pointsString.length; i++) {
-        result = pointsString[i].replace(/\b\d\b/g, m => letters[m]);
+    for (let i = 0; i < pointsString.length; i++) {
+        let result = pointsString[i].replace(/\b\d\b/g, m => letters[m]);
         this.toolbarCounter.children[index].setAttribute("class", result);
         index--;
     }
@@ -118,12 +118,12 @@ Window.prototype.removeDice = function () {
 }
 
 Window.prototype.addSound = function () {
-    new Audio(src = "wav/add.wav").play();
+    new Audio(this.src = "wav/add.wav").play();
 }
 
 //tror det funkar nu, ändrar value direkt istället för att sätta ett attribut som en jävla apa
 Window.prototype.diceReRoll = function () {
-    for (i = 0; i < this.diceArr.length; i++) {
+    for (let i = 0; i < this.diceArr.length; i++) {
         this.diceArr[i].reroll();
     }
 }
