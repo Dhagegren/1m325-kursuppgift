@@ -49,7 +49,6 @@ Window.prototype.createWindow = function () {
 
     this.roll.setAttribute("class", "roll");
     this.roll.addEventListener("click", this.diceReRoll.bind(this));
-    //detta fungerar inte, varför?
     this.roll.addEventListener("click", this.countPoints.bind(this));
     this.ulList.appendChild(this.roll);
 
