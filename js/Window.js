@@ -1,5 +1,5 @@
 /*
-*Window klassen skapar alla html element när den kallas på.
+*Window klassen skapar alla html element för ett applikationsfönster.
 */
 var Window = function () {
 
