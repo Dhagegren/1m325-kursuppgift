@@ -1,3 +1,6 @@
+/*
+*Window klassen skapar alla html element när den kallas på.
+*/
 var Window = function () {
 
     this.diceWindowWrapper = document.createElement("div");
@@ -15,6 +18,11 @@ var Window = function () {
     this.diceUl = document.createElement("ul");
 
 }
+
+/* 
+*Lägger till klasser och appendar alla html element till det window objekt som har skapats.
+*@returns {html} - skapar html och skickar tillbaka till objektet
+*/
 Window.prototype.createWindow = function () {
 
     this.diceWindowWrapper.setAttribute("class", "dice-window-wrapper");
@@ -70,10 +78,12 @@ Window.prototype.createWindow = function () {
 
     this.diceContentWrapper.appendChild(this.diceUl);
     this.diceArr = [];
-
 }
 
-//väldigt ofärdig kod för att fixa css på räknaren, inte en aning hur jag ska tackla problement.
+
+/*
+*Nollställer räknaren. Tar ut värdet från alla tärningar, omvandlar värdet till en textsträng och sätter en korrekt css.
+*/
 Window.prototype.countPoints = function () {
     for (let i = 0; i < this.toolbarCounter.children.length; i++) {
         this.toolbarCounter.children[i].setAttribute("class", "zero");
@@ -96,11 +106,17 @@ Window.prototype.countPoints = function () {
 
 }
 
+/*
+*Tar väck diceWindowWrapper och tar därmed väck rutan från fönstret
+*/
 Window.prototype.closeWindow = function () {
     this.diceWindowWrapper.remove();
 }
 
-
+/*
+*Kollar om diceArr är mindre än 40 och om det får plats mer tärningar. Om det finns plats skapas ett nytt tärningsobjekt, kallar på rollDice för att ge den ett värde. 
+*Pushar in tärningen i diceArr och appendar elementet till listan för tärningar.
+*/
 Window.prototype.addDice = function () {
     if (this.diceArr.length < 40) {
         var dice = new Dice();
@@ -110,17 +126,25 @@ Window.prototype.addDice = function () {
     }
 }
 
+/*
+*Skapar this.last vilket hämtar det sista indexet från this.diceArr. Tar väck elementet och tar väck objektet från diceArr
+*/
 Window.prototype.removeDice = function () {
     this.last = this.diceArr[this.diceArr.length - 1];
     this.last.diceElement.parentNode.removeChild(this.last.diceElement);
     this.diceArr.pop();
 }
 
+/*
+*Skapar ett HTMLAudioElement och spelar upp ljudet när funktionen kallas.
+*/
 Window.prototype.addSound = function () {
     new Audio(this.src = "wav/add.wav").play();
 }
 
-//tror det funkar nu, ändrar value direkt istället för att sätta ett attribut som en jävla apa
+/*
+*Går igenom alla tärningar i diceArr och kallar på reRoll som ger alla tärningar ett nytt värde
+*/
 Window.prototype.diceReRoll = function () {
     for (let i = 0; i < this.diceArr.length; i++) {
         this.diceArr[i].reroll();
