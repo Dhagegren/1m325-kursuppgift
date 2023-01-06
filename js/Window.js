@@ -1,5 +1,5 @@
 /*
-*Window klassen skapar alla html element för ett applikationsfönster.
+*Window klassen skapar alla html element för ett applikationsfönster när det skapas ett nytt objekt av Window.
 diceWindowWrapper
 */
 var Window = function () {
