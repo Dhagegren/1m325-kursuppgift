@@ -10,7 +10,7 @@ var Main = {
             diceWindow.createWindow(diceWindow);
 
             /*
-            *DragnDrop importerad från Henrik Andersen
+            *DragnDrop bibliotek importerad från Henrik Andersen
             */
             var drag = new DragnDrop();
             var x = drag.add(diceWindow.diceWindowWrapper, diceWindow.diceMenubarWrapper);
