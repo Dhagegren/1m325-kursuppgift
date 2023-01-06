@@ -82,7 +82,7 @@ Window.prototype.createWindow = function () {
 
 
 /*
-*Nollställer räknaren. Tar ut värdet från alla tärningar, omvandlar värdet till en textsträng och sätter en korrekt css.
+*Nollställer räknaren. Tar ut värdet från alla tärningar, gör om värdet till en array, omvandlar värdet till textsträngar 1=one, sätter sedan css på klasserna för att visa poängen.
 */
 Window.prototype.countPoints = function () {
     for (let i = 0; i < this.toolbarCounter.children.length; i++) {
