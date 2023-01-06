@@ -1,5 +1,7 @@
 /*
 *Dice är klassen för tärningar och har en variabel som är value.
+*Value
+*@type {number}
 */
 var Dice = function () {
 
