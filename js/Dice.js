@@ -2,7 +2,6 @@ var Dice = function () {
 
     this.value = 0;
     Dice.prototype.rollDice = function () {
-        console.log(NotifyPaintEvent);
         this.diceElement = document.createElement("li");
 
         var num = Math.floor(Math.random() * 6 + 1);
