@@ -131,9 +131,12 @@ Window.prototype.addDice = function () {
 *Skapar this.last vilket hämtar det sista indexet från this.diceArr. Tar väck elementet och tar väck objektet från diceArr
 */
 Window.prototype.removeDice = function () {
+    if(this.diceArr.length>0){  
     this.last = this.diceArr[this.diceArr.length - 1];
     this.last.diceElement.parentNode.removeChild(this.last.diceElement);
     this.diceArr.pop();
+    }
+    else console.log("Finns inget att ta bort");
 }
 
 /*
