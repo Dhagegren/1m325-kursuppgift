@@ -18,13 +18,6 @@ var Window = function () {
     this.diceContentWrapper = document.createElement("div");
     this.diceUl = document.createElement("ul");
 
-}
-
-/* 
-*Lägger till klasser och appendar alla html element till det window objekt som har skapats.
-*@returns {html} - skapar html och skickar tillbaka till objektet
-*/
-Window.prototype.createWindow = function () {
 
     this.diceWindowWrapper.setAttribute("class", "dice-window-wrapper");
     document.getElementById("page-content-wrapper").appendChild(this.diceWindowWrapper);
@@ -79,6 +72,7 @@ Window.prototype.createWindow = function () {
 
     this.diceContentWrapper.appendChild(this.diceUl);
     this.diceArr = [];
+
 }
 
 
@@ -121,7 +115,7 @@ Window.prototype.closeWindow = function () {
 Window.prototype.addDice = function () {
     if (this.diceArr.length < 40) {
         var dice = new Dice();
-        dice.rollDice(dice);
+        dice.rollDice();
         this.diceArr.push(dice);
         this.diceUl.appendChild(dice.diceElement);
     }
@@ -132,9 +126,7 @@ Window.prototype.addDice = function () {
 */
 Window.prototype.removeDice = function () {
     if(this.diceArr.length>0){  
-    this.last = this.diceArr[this.diceArr.length - 1];
-    this.last.diceElement.parentNode.removeChild(this.last.diceElement);
-    this.diceArr.pop();
+    this.diceArr.pop().diceElement.remove()
     }
     else console.log("Finns inget att ta bort");
 }
@@ -151,7 +143,7 @@ Window.prototype.addSound = function () {
 */
 Window.prototype.diceReRoll = function () {
     for (let i = 0; i < this.diceArr.length; i++) {
-        this.diceArr[i].reroll();
+        this.diceArr[i].rollDice();
     }
 }
 

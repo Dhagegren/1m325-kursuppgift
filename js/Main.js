@@ -4,11 +4,12 @@
 */
 var Main = {
 
+
     init: function () {
         document.getElementById("icon-dice").addEventListener("click", function () {
             var diceWindow = new Window();
-            diceWindow.createWindow(diceWindow);
-
+            
+           
             /*
             *DragnDrop bibliotek importerad från Henrik Andersen
             */
